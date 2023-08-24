@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Interview Scheduler</title>
+<meta charset="utf-8">
+<script>
+	$(document).ready(function() {
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+</script>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<style type="text/css">
+#bt {
+	margin-top: -57px;
+}
+</style>
+</head>
+<body>
+
+	<div ng-app="myApp" ng-controller="canCtrl" class="container">
+		<div align="center" class="shadow-lg p-4 mb-4 bg-white">
+			<h2>Candidate form</h2>
+			<hr color="red">
+		</div>
+		<form action="../../candidate/api/saveCandidate" method="post">
+			<div class="form-group">
+				<label>First Name:</label> <input type="text" class="form-control"
+					placeholder="Enter Fname" name="fname">
+			</div>
+			<div class="form-group">
+				<label>Last Name:</label> <input type="text" class="form-control"
+					placeholder="Enter LastName" name="lname">
+			</div>
+			<div class="form-group">
+				<label>Priority:</label> <select class="custom-select"
+					name="priority">
+					<option selected>Choose Priority One...</option>
+					<option value="P1">{{myData.p1}}</option>
+					<option value="P2">{{myData.p2}}</option>
+				</select>
+			</div>
+
+			<div class="form-check form-check-inline">
+				<div>
+					<label>Time Slots :</label>
+				</div>
+				&nbsp;
+				<div class="custom-control custom-radio">
+					<input type="radio" id="customRadio1" name="customRadio"
+						value="10am - 12pm" class="custom-control-input"> <label
+						class="custom-control-label" for="customRadio1">{{myData[interview.slot1]}}</label>
+				</div>
+				&nbsp;
+				<div class="custom-control custom-radio">
+					<input type="radio" id="customRadio2" name="customRadio"
+						value="12:30pm - 02:30pm" class="custom-control-input"> <label
+						class="custom-control-label" for="customRadio2">{{myData.s2}}</label>
+				</div>
+				&nbsp;
+				<div class="custom-control custom-radio">
+					<input type="radio" id="customRadio3" name="customRadio"
+						value="03pm - 04:30pm" class="custom-control-input"> <label
+						class="custom-control-label" for="customRadio3">{{myData.s3}}</label>
+				</div>
+			</div>
+			<br>
+			<div>
+				<button type="submit" class="btn btn-primary" data-toggle="tooltip"
+					title="submit to create new records for candidate"
+					data-placement="bottom">Submit</button>
+				<div align="right" id="bt">
+					<a href="/" class="btn btn-primary" data-toggle="tooltip"
+						data-placement="bottom" title="Back to home">home</a>
+				</div>
+			</div>
+		</form>
+	</div>
+<!-- 	<script type="text/javascript">
+		var app = angular.module('myApp', []);
+		app.controller('canCtrl', function($scope, $http) {
+			$http.get("http://localhost:9090/candidate/api/allCandidates/prop")
+					.then(function(response) {
+						$scope.myData = response.data;
+					});
+		});
+	</script> -->
+	
+		<script type="text/javascript">
+		var app = angular.module('myApp', []);
+		app.controller('canCtrl', function($scope, $http) {
+			$http.get("../../app.properties")
+					.then(function(response) {
+						$scope.myData = response.data.records;
+					});
+		});
+	</script>
+	
+</body>
+</html>
